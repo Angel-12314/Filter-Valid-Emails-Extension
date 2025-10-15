@@ -1,0 +1,179 @@
+<!-- <!DOCTYPE html>
+<html>
+  <head>
+    <title>Email Finder</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        width: 300px;
+        padding: 10px;
+      }
+      ul {
+        padding-left: 15px;
+      }
+      li {
+        margin: 4px 0;
+      }
+      button {
+        padding: 6px 10px;
+        margin-top: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Valid Emails Found</h2>
+
+    {% if emails %}
+      <ol>
+        {% for email in emails %}
+          <li>{{ email }}</li>
+        {% endfor %}
+      </ol>
+    {% else %}
+      <p>No valid emails yet.</p>
+    {% endif %}
+
+     
+    <button id="findEmailsBtn" onclick="window.location.reload()">Refresh</button>
+  </body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Email Finder</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        width: 300px;
+        padding: 10px;
+      }
+      ul {
+        padding-left: 15px;
+      }
+      li {
+        margin: 4px 0;
+      }
+      button {
+        padding: 6px 10px;
+        margin-top: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    
+    <h2>Valid Emails</h2>
+
+    <ol id="emailList"></ol>
+    <button id="findEmailsBtn">Find Emails</button>
+    
+    <!--<button id="findEmailsBtn">Find Emails</button>
+    <ol id="emailList">
+       {% if emails %}
+        {% for email in emails %}
+          <li>{{ email }}</li>
+        {% endfor %}
+      {% else %}
+        <p>No valid emails yet.</p>
+      {% endif %} 
+    </ol>-->
+    <!-- 
+    <button id="findEmailsBtn">Refresh</button> -->
+
+    <!-- <script>
+      document.getElementById("findEmailsBtn").addEventListener("click", async () => {
+        const emailList = document.getElementById("emailList");
+        emailList.innerHTML = "<li>Scanning for emails...</li>";
+
+        try {
+          // ✅ Ask Chrome extension to find emails from all tabs (only if running in extension context)
+          if (typeof chrome !== "undefined" && chrome.tabs) {
+            const tabs = await chrome.tabs.query({});
+            const allEmails = new Set();
+
+            for (const tab of tabs) {
+              try {
+                await chrome.scripting.executeScript({
+                  target: { tabId: tab.id },
+                  files: ["content.js"],
+                });
+              } catch (err) {
+                console.warn("Could not inject script into tab:", tab.id, err);
+              }
+
+              const response = await new Promise((resolve) => {
+                chrome.tabs.sendMessage(tab.id, { action: "getEmails" }, (res) => resolve(res));
+              });
+
+              if (!response || !response.emails) continue;
+
+              for (const email of response.emails) {
+                if (allEmails.has(email)) continue;
+                allEmails.add(email);
+
+                // ✅ Send to backend for validation 
+                const res = await fetch("http://127.0.0.1:5000/validate", {
+                //const res = await fetch("https://<your-render-app>.onrender.com/validate", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ email }),
+                });
+
+                const data = await res.json();
+                if (data.valid) {
+                  const li = document.createElement("li");
+                  li.textContent = data.email;
+                  li.style.color = "green";
+                  emailList.appendChild(li);
+                }
+              }
+            }
+
+            if (allEmails.size === 0) {
+              emailList.innerHTML = "<li>No emails found on any open tab.</li>";
+            }
+          } else {
+            // If running outside Chrome extension (like when opened in browser)
+            //const res = await fetch("https://<your-render-app>.onrender.com/emails");
+            const res = await fetch("http://127.0.0.1:5000/emails");
+            const emails = await res.json();
+
+            if (emails.length > 0) {
+              emailList.innerHTML = "";
+              emails.forEach((email) => {
+                const li = document.createElement("li");
+                li.textContent = email;
+                li.style.color = "green";
+                emailList.appendChild(li);
+              });
+            } else {
+              emailList.innerHTML = "<li>No valid emails yet.</li>";
+            }
+          }
+        } catch (err) {
+          console.error("Error fetching emails:", err);
+          emailList.innerHTML = "<li>Error fetching emails. Check console.</li>";
+        }
+      });
+    </script> -->
+    <script src="../popup.js"></script>
+    
+  </body>
+</html>
