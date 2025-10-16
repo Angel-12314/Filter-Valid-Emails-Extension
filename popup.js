@@ -46,7 +46,8 @@ document.getElementById("findEmailsBtn").addEventListener("click", async () => {
         allEmails.add(email);
 
         try {
-          const res = await fetch("http://127.0.0.1:5000/validate", {
+          //const res = await fetch("http://127.0.0.1:5000/validate", {
+          const res = await fetch("https://filter-valid-emails-extension.onrender.com/validate", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email }),
@@ -77,3 +78,4 @@ document.getElementById("findEmailsBtn").addEventListener("click", async () => {
     console.error("Error in findEmailsBtn handler:", err);
   }
 });
+
