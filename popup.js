@@ -20,7 +20,7 @@ document.getElementById("findEmailsBtn").addEventListener("click", async () => {
 
       //if (!tab.url || tab.url.startsWith("chrome://") || tab.url.startsWith("chrome-extension://")) {
       if (restrictedPrefixes.some(prefix => tab.url.startsWith(prefix))) {
-        console.warn("⛔ Skipping restricted page:", tab.url);
+        console.warn("Skipping restricted page:", tab.url);
         continue;
       }
 
@@ -50,20 +50,16 @@ document.getElementById("findEmailsBtn").addEventListener("click", async () => {
           const res = await fetch("https://filter-valid-emails-extension.onrender.com/validate", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            //body: JSON.stringify({ email }),
-          //});
-          body: JSON.stringify({ email: "test@example.com" })
-          })
-          .then(r => r.json())
-          .then(console.log)
-          .catch(console.error);
+            body: JSON.stringify({ email }),
+          });
 
           if (!res.ok) {
             console.error("Server error:", res.status, await res.text());
             continue;
           }
-
+          
           const data = await res.json();
+          console.log("Response from server:", data);
           const li = document.createElement("li");
           li.textContent = email;
           li.style.color = data.valid ? "green" : "red";
@@ -83,5 +79,6 @@ document.getElementById("findEmailsBtn").addEventListener("click", async () => {
     console.error("Error in findEmailsBtn handler:", err);
   }
 });
+
 
 
