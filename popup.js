@@ -82,15 +82,21 @@
 
 document.getElementById("findEmailsBtn").addEventListener("click", async () => {
   try {
-    // ✅ Always reset the email list display
     const emailList = document.getElementById("emailList");
     emailList.innerHTML = "";
 
-    // ✅ Get all currently open tabs
-    const tabs = await chrome.tabs.query({});
+    // ✅ Get all currently open tabs (active windows only)
+    const tabs = await chrome.tabs.query({ status: "complete" });
 
-    // ✅ Clear previous results (from closed tabs)
+    // ✅ Reset everything before a new scan
     const allEmails = new Set();
+
+    if (tabs.length === 0) {
+      const li = document.createElement("li");
+      li.textContent = "No open tabs detected.";
+      emailList.appendChild(li);
+      return;
+    }
 
     for (const tab of tabs) {
       if (!tab.url) continue;
@@ -108,6 +114,16 @@ document.getElementById("findEmailsBtn").addEventListener("click", async () => {
         continue;
       }
 
+      // ✅ Verify the tab is still open before processing
+      const isTabStillOpen = await new Promise((resolve) => {
+        chrome.tabs.get(tab.id, (t) => resolve(!!t));
+      });
+
+      if (!isTabStillOpen) {
+        console.warn("Tab closed before processing:", tab.id);
+        continue;
+      }
+
       try {
         await chrome.scripting.executeScript({
           target: { tabId: tab.id },
@@ -115,10 +131,21 @@ document.getElementById("findEmailsBtn").addEventListener("click", async () => {
         });
       } catch (err) {
         console.warn("Could not inject script into tab:", tab.id, err);
+        continue;
       }
 
       const response = await new Promise((resolve) => {
-        chrome.tabs.sendMessage(tab.id, { action: "getEmails" }, (res) => resolve(res));
+        let responded = false;
+
+        chrome.tabs.sendMessage(tab.id, { action: "getEmails" }, (res) => {
+          responded = true;
+          resolve(res);
+        });
+
+        // Timeout if tab does not respond in 1s (likely closed)
+        setTimeout(() => {
+          if (!responded) resolve(null);
+        }, 1000);
       });
 
       if (!response || !response.emails) continue;
@@ -152,16 +179,13 @@ document.getElementById("findEmailsBtn").addEventListener("click", async () => {
       }
     }
 
-    // ✅ Show a message if there are no open-tab emails
+    // ✅ Only display "no emails" if nothing found at all
     if (allEmails.size === 0) {
       const li = document.createElement("li");
       li.textContent = "No emails found on any open tab.";
       emailList.appendChild(li);
     }
-
   } catch (err) {
     console.error("Error in findEmailsBtn handler:", err);
   }
 });
-
-
