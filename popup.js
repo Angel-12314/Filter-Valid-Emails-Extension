@@ -50,8 +50,13 @@ document.getElementById("findEmailsBtn").addEventListener("click", async () => {
           const res = await fetch("https://filter-valid-emails-extension.onrender.com/validate", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email }),
-          });
+            //body: JSON.stringify({ email }),
+          //});
+          body: JSON.stringify({ email: "test@example.com" })
+          })
+          .then(r => r.json())
+          .then(console.log)
+          .catch(console.error);
 
           if (!res.ok) {
             console.error("Server error:", res.status, await res.text());
@@ -78,4 +83,5 @@ document.getElementById("findEmailsBtn").addEventListener("click", async () => {
     console.error("Error in findEmailsBtn handler:", err);
   }
 });
+
 
