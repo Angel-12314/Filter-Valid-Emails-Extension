@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Email Validator</title>
+    <style>
+      body {
+        text-align: center;
+        font-family: Arial, sans-serif;
+        padding: 10px;
+      }
+      .button {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: blueviolet;
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: 28px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  width: 200px;
+  cursor: pointer;
+}
+
+.button span {
+  display: inline-block;
+  position: relative;
+  transition: 0.1s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  right: -20px;
+  transition: 0.1s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+.card {
+  
+  width: 500px;
+  padding: 20px;
+  border: 3px solid black;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+}
+.card-container {
+  display: flex;
+  
+  justify-content: center; 
+}
+    </style>
+  </head>
+  <body>
+    <div class="card-container">
+  <div class="card">
+    <h2>Filter Valid Emails Extension</h2> 
+    <a href="/validate">
+        <button class="button" style="vertical-align:middle"><span>Validate </span></button>
+    </a>
+  </div>
+</div>
+  </body>
+</html>
+

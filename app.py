@@ -73,10 +73,10 @@ def validate_email_get():
 # Home route (optional, just for Render root page)
 @app.route("/")
 def home():
-    return jsonify({"message": "Email Validator API is running!"}), 200
+    #return jsonify({"message": "Email Validator API is running!"}), 200
+    return render_template('index.html')
 
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', debug=True)
-
 
