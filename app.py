@@ -55,7 +55,7 @@ def is_valid_email(email):
         return False
 
 
-# POST endpoint used by your Chrome extension
+
 @app.route("/validate", methods=["POST"])
 def validate_email():
     data = request.json
@@ -64,11 +64,11 @@ def validate_email():
     return jsonify({"email": email, "valid": valid})
 
 
-# Optional GET endpoint (prevents 405 errors when testing in browser)
+
 @app.route("/validate", methods=["GET"])
 def validate_email_get():
-    return jsonify({"message": "Use POST method to validate email."}), 200
-
+    #return jsonify({"message": "Use POST method to validate email."}), 200
+    return render_template('home.html')
 
 # Home route (optional, just for Render root page)
 @app.route("/")
@@ -78,3 +78,4 @@ def home():
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', debug=True)
+
