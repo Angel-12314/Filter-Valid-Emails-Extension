@@ -43,10 +43,10 @@ def is_valid_email(email):
     starts_match = any(email_lower.startswith(val) for val in starts_values)
     ends_match = any(email_lower.endswith(val) for val in ends_values)
 
-    print(f"Checking email: {email}")
-    print(f"Contains Match: {contains_match}")
-    print(f"Starts Match: {starts_match}")
-    print(f"Ends Match: {ends_match}")
+    #print(f"Checking email: {email}")
+    #print(f"Contains Match: {contains_match}")
+    #print(f"Starts Match: {starts_match}")
+    #print(f"Ends Match: {ends_match}")
 
     
     if contains_match or starts_match or ends_match:
@@ -79,4 +79,5 @@ def home():
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', debug=True)
+
 
