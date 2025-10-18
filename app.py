@@ -1,5 +1,5 @@
 import pandas as pd
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -78,4 +78,5 @@ def home():
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', debug=True)
+
 
