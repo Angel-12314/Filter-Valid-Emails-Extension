@@ -6,7 +6,9 @@
   "permissions": [
     "tabs",
     "scripting",
-    "activeTab"
+    "activeTab",
+    "storage",
+    "clipboardWrite"
   ],
   "host_permissions": [
     "<all_urls>"
@@ -26,3 +28,4 @@
     }
   ]
 }
+
