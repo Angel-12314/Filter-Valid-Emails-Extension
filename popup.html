@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Email Finder</title>
+    <title>Email Validator</title>
     <style>
       body {
         font-family: Arial, sans-serif;
-        width: 300px;
+        width: 320px;
         padding: 10px;
       }
       ul {
-        list-style-type: none;
-        padding-left: 15px;
+        list-style: none;
+        padding-left: 0;
       }
       li {
-        margin: 4px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #f5f5f5;
+        border-radius: 4px;
       }
       button {
         padding: 6px 10px;
@@ -27,14 +31,88 @@
       button:hover {
         background-color: #0056b3;
       }
+      .copy-btn {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 3px 6px;
+        cursor: pointer;
+        font-size: 12px;
+      }
+      .copy-btn:hover {
+        background-color: #218838;
+      }
+      #copyAllBtn,#copyAllemails {
+        background-color: #17a2b8;
+        margin-bottom: 8px;
+      }
+      #copyAllBtn:hover,#copyAllemails:hover {
+        background-color: #138496;
+      }
+      h1 {
+        background: #f5f5f5;
+        padding: 0px;
+      }
+      .tabs {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 10px;
+      }
+      .tab-btn {
+        flex: 1;
+        padding: 8px;
+        cursor: pointer;
+        border: none;
+        border-bottom: 2px solid transparent;
+        background: #e9ecef;
+      }
+      .tab-btn.active {
+        background: #007bff;
+        color: white;
+        border-bottom: 2px solid #0056b3;
+      }
+      .tab-content {
+        display: none;
+      }
+      .tab-content.active {
+        display: block;
+      }
+      #clearPrevBtn {
+        background-color: #dc3545;
+      }
+      #clearPrevBtn:hover {
+        background-color: #c82333;
+      }
     </style>
   </head>
   <body>
-    <h3>Emails Found</h3>
-    <ul id="emailList"></ul>
-    <button id="findEmailsBtn">Find Emails</button>
+    <h1>Email Validator &#128231;</h1>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button id="currentTabBtn" class="tab-btn active">Current Emails</button>
+      <button id="previousTabBtn" class="tab-btn">Previous Emails</button>
+    </div>
+
+    <!-- Current Emails Tab -->
+    <div id="currentTab" class="tab-content active">
+      <h3 id="emailListTotal"></h3>
+      <button id="copyAllBtn">Copy All Emails</button>
+      <ul id="emailList"></ul>
+      <button id="findEmailsBtn">Find Emails &#128269;</button>
+    </div>
+
+    <!-- Previous Emails Tab -->
+    <div id="previousTab" class="tab-content">
+      <h3>Saved from last session:</h3>
+      <h3 id="storedEmails"></h3>
+      <button id="copyAllemails">Copy All Emails</button>
+      <ul id="previousEmailList"></ul>
+      
+      <button id="clearPrevBtn">Clear All</button>
+    </div>
 
     <script src="popup.js"></script>
   </body>
 </html>
-
