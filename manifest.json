@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Email Finder",
+  "name": "FinderFox",
   "version": "1.0",
-  "description": "Find valid emails across all open tabs",
+  "description": "Find valid emails in all open tabs",
   "permissions": [
     "tabs",
     "scripting",
@@ -28,4 +28,3 @@
     }
   ]
 }
-

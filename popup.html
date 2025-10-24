@@ -1,12 +1,30 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Email Validator</title>
+    <title>FinderFox</title>
     <style>
       body {
         font-family: Arial, sans-serif;
         width: 320px;
         padding: 10px;
+        position: relative;
+      }
+      #closePopup {
+        position: absolute;
+        top: 5px;
+        right: 8px;
+        background: #ff4d4d;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      #closePopup:hover {
+        background: #cc0000;
       }
       ul {
         list-style: none;
@@ -87,12 +105,13 @@
     </style>
   </head>
   <body>
-    <h1>Email Validator &#128231;</h1>
+    <!-- <button id="closePopup">&times;</button> -->
+    <h1>FinderFox &#128231;</h1>
 
     <!-- Tabs -->
     <div class="tabs">
-      <button id="currentTabBtn" class="tab-btn active">Current Emails</button>
-      <button id="previousTabBtn" class="tab-btn">Previous Emails</button>
+      <!-- <button id="currentTabBtn" class="tab-btn active">Emails Found will be displayed here</button> -->
+      <!-- <button id="previousTabBtn" class="tab-btn">Previous Emails</button> -->
     </div>
 
     <!-- Current Emails Tab -->
@@ -112,8 +131,12 @@
       
       <button id="clearPrevBtn">Clear All</button>
     </div>
-
+    <script>
+      // Close popup button
+      // document.getElementById("closePopup").addEventListener("click", () => {
+      //   window.close(); // closes popup if opened via chrome.windows.create()
+      // });
+    </script>
     <script src="popup.js"></script>
   </body>
 </html>
-
