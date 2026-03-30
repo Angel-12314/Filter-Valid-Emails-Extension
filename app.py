@@ -1,11 +1,11 @@
-#import pandas as pd
-#from flask import Flask, request, jsonify, render_template
-#from flask_cors import CORS
+import pandas as pd
+from flask import Flask, request, jsonify, render_template
+from flask_cors import CORS
 
 app = Flask(__name__)
 
 
-#CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 
 rules = pd.read_excel(
@@ -70,11 +70,11 @@ def validate_email_get():
     #return jsonify({"message": "Use POST method to validate email."}), 200
     return render_template('home.html')
 
-## Home route (optional, just for Render root page)
-#@app.route("/")
-#def home():
+# Home route (optional, just for Render root page)
+@app.route("/")
+def home():
     ##return jsonify({"message": "Email Validator API is running!"}), 200
-    #return render_template('index.html')
+    return render_template('index.html')
 
 
 #if __name__ == "__main__":
