@@ -50,7 +50,7 @@ def is_valid_email(email):
 
     
     if contains_match or starts_match or ends_match:
-        return True
+        return False
     else:
         return False
 
